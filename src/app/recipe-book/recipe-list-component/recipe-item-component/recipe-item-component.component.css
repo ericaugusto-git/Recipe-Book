@@ -1,0 +1,12 @@
+#recipeCard :hover{
+  background-color: #ffe3ed;
+}
+
+#recipeCard {
+  background-color: #fff5f8;
+  cursor: pointer;
+}
+
+.active{
+  color: rgb(161, 26, 26);
+}

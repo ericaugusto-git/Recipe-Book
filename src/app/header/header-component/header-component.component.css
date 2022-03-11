@@ -1,0 +1,10 @@
+.menu-item {
+  width: 33.33%;
+  float: left;
+  position: relative; /* <-- added declaration */
+}
+
+a{
+  text-decoration: none;
+  cursor: pointer;
+}

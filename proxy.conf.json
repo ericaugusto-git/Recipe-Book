@@ -1,0 +1,7 @@
+  {
+    "/posts": {
+      "target": "https://serpapi.com/search.json?q=Apple&tbm=isch&ijn=0&api_key=a86e9b567e186ecbbb60df7227821078f23ae97b587ffc313b95d79a36f6f978",
+      "secure": true,
+      "changeOrigin": true
+    }
+  }
