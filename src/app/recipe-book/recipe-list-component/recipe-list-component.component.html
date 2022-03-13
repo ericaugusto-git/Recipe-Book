@@ -3,9 +3,5 @@
       <button class="btn btn-primary col-md-4 mx-auto" routerLink="new">Add new Recipe</button>
   </div>
   <hr>
-  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-      <app-recipe-item *ngFor="let recipe of recipes; let i = index" [recipe]="recipe" [index]="i"></app-recipe-item>
-  </div>
+    <app-recipe-item *ngFor="let recipe of recipes; let i = index" [recipe]="recipe" [index]="i"></app-recipe-item>
 </div>
-<a href="#" class="previous round">&#8249;</a>
-<a href="#" class="next round">&#8250;</a>

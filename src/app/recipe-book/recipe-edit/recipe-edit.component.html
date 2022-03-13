@@ -1,3 +1,59 @@
-<form ngForm #f="ngForm">
-  <button (click)="fetchImage(f)">asdasdsa</button>
-</form>
+<div class="form-group">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xl-6">
+          <label for="name" style="font-weight: bold;">Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name" #name>
+          </div>
+          <div class="col-xl-4" style="padding-top: 3%;">
+            <button class="btn btn-success" [disabled]="!recipeForm.valid" *ngIf="recipeImagePath != '';else alt" type="submit">Save Recipe</button>
+            <ng-template #alt>
+              <button (click)="fetchImages(name.value)" type="button" class="btn btn-success" [disabled]="!recipeForm.get('name').valid"
+              >Search</button>
+            </ng-template>
+            <button type="submit" class="btn btn-danger" style="margin-left: 2%;" (click)="onCancel()">Cancel</button>
+          </div>
+      </div>
+      <div class="row" style="margin-top: 3%;" *ngIf="recipeImagePath == ''">
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0" *ngFor="let link of links;">
+          <img
+            #img
+            src={{link}}
+            class="w-100 shadow-1-strong rounded mb-4"
+            alt=""
+            (click)="setLink(img.src)"
+          />
+        </div>
+      </div>
+      <div class="col-xl-12" *ngIf="recipeImagePath != ''">
+        <label for="url" style="font-weight: bold;">Image URL</label>
+        <input type="text" id="url" class="form-control" formControlName="imagePath">
+        <img src={{recipeImagePath}} class="img-thumbnail mx-auto" alt="thumbnail" style="height: 30%; width: 30%">
+      </div>
+      <div class="col-xl-12" *ngIf="recipeImagePath != ''">
+        <label for="description" style="font-weight: bold;">Description</label>
+        <textarea class="form-control" id="description" rows="5" formControlName="description"></textarea>
+      </div>
+      <div class="col-xl-12" formArrayName="ingredients" *ngIf="recipeImagePath != ''">
+        <div class="row" style="padding-top: 2%;"
+        *ngFor="let ingredient of getControls(); let i = index"
+        [formGroupName]="i">
+          <div class="col-xl-8">
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+          <div class="col-xl-2">
+            <input type="number" class="form-control" formControlName="amount">
+          </div>
+          <div class="col-xl-2">
+            <button type="submit" (click)="deleteIngredient(i)" class="btn btn-danger">X</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="col-xl-12" *ngIf="recipeImagePath != ''">
+        <button type="button" class="btn btn-success" (click)="addNewIngredient()">Add ingredient</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Recipes } from "./recipe.model";
 @Injectable()
 export class RecipeService {
+  recipesChanged = new Subject<Recipes[]>();
 
   constructor (private shoppingListService: ShoppingListService, private httpClient: HttpClient) {}
   httpOptions = {
@@ -16,7 +17,7 @@ export class RecipeService {
     })
   };
   headers = new HttpHeaders()
-  result;
+  result: any;
   recipes: Recipes[] = [
     new Recipes("Chicken Katsu",
     "It's hard not to love a fried chicken cutlet, but this katsu sauce takes this to the next level.",
@@ -51,17 +52,24 @@ export class RecipeService {
       this.shoppingListService.addNewIngredient(ingredient);
     }
   }
-  baseurl = "https://serpapi.com/search.json?q=Apple&tbm=isch&ijn=0&api_key=a86e9b567e186ecbbb60df7227821078f23ae97b587ffc313b95d79a36f6f978"
-  fetchImages(){
-    const axios = require('axios')
-    axios
-      .get(this.baseurl)
-      .then(res => {
-        console.log(`statusCode: ${res.status}`)
-        console.log(res)
-      })
-      .catch(error => {
-        console.error(error)
-      })
+
+  addRecipe(recipe: Recipes){
+      this.recipes.push(recipe);
+      this.recipesChanged.next(this.recipes.slice())
   }
+
+  updateRecipe(index: number, newRecipe: Recipes){
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice())
+  }
+
+  deleteRecipe(index){
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice())
+  }
+
+  fetchImages(name){
+    return this.httpClient.get("https://customsearch.googleapis.com/customsearch/v1?imgSize=HUGE&key=AIzaSyBYKaDIBztMzKq9JuL0uRapCKC3p5RmN3w&cx=389ddf6134f07f332&searchType=image&q=" + name);
+  }
+
 }
