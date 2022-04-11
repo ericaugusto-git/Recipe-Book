@@ -1,0 +1,29 @@
+
+<div class="div col-xs-12">
+  <img src="../../assets/img/ramen.png" alt="ramen" class="ramen img-fluid">
+</div>
+<div class="div">
+  <div class="div col-xs-12 center">
+    <div class="alert alert-danger" *ngIf="error">
+      <p>{{error}}</p>
+    </div>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <div class="form group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" class="form-control" name="email" ngModel required email>
+      </div>
+      <div class="form group" style="padding-bottom: 2%;">
+        <label for="email">Password</label>
+        <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6">
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+        {{isLoginMode ? 'Login' : 'Sign Up'}}
+      </button>
+      |
+      <button class="btn btn-primary" type="button" (click)="onSwitchMode()">
+       Switch to {{isLoginMode ? 'Sign Up' : 'Login'}}
+      </button>
+      <loading-spinner *ngIf="isLoading"></loading-spinner>
+    </form>
+  </div>
+</div>

@@ -7,18 +7,24 @@
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav" id="navbarNav">
       <li class="nav-item">
-        <a routerLink="/recipes" routerLinkActive="active" class="nav-link">Recipes</a>
+        <a routerLink="/recipes" routerLinkActive="active" class="nav-link" *ngIf="isAuthenticated">Recipes</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/auth" class="nav-link" *ngIf="!isAuthenticated">Log In</a>
       </li>
       <li class="nav-item">
         <a routerLink="/shopping-list" class="nav-link" routerLinkActive="active">Shopping List</a>
       </li>
     </ul>
     <ul class="nav navbar-nav ms-auto">
-      <li class="dropdown nav-item"> <a appDropdown class="dropdown-toggle nav-link" data-toggle="dropdown" role="button">Manage <span class="caret"></span></a>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" (click)="onLogout()">Log Out</a>
+      </li>
+      <li class="dropdown nav-item" *ngIf="isAuthenticated"> <a appDropdown class="dropdown-toggle nav-link" data-toggle="dropdown" role="button">Manage <span class="caret"></span></a>
         <ul class="dropdown-menu text-center" style="right: 0px;">
-          <li class="dropdown-item"><a>Save Data</a>
+          <li class="dropdown-item"><a (click)="onSaveData()">Save Data</a>
           </li>
-          <li class="dropdown-item"><a>Fetch Data</a>
+          <li class="dropdown-item"><a (click)="onFetchData()">Fetch Data</a>
           </li>
         </ul>
       </li>
