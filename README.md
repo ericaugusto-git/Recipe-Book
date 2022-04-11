@@ -4,5 +4,6 @@ Projeto sendo criado com o intuíto de aprender Angular seguindo o curso https:/
 
 ## A fazer
 - [ ] Tornar o site responsivo.
-- [ ] Adicionar opção de editar o como fazer a receita
+- [ ] Adicionar opção de escrever o como fazer a receita
 - [ ] Tornar a exibição da lista de receitas mais coerente 
+- [ ] Exibir tempo da última edição da receita no card
